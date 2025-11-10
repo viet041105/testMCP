@@ -4,6 +4,7 @@ from mcp.server.fastmcp import FastMCP
 import json, os, requests
 import datetime as dt
 import io, base64
+import uvicorn
 
 mcp = FastMCP("Weather")
 
@@ -134,4 +135,4 @@ def weather_now(q: str,
 
 if __name__ == '__main__':
     port=int(os.getenv("PORT",8000))
-    mcp.run(transport="sse",host="0.0.0.0",port=port)
+    uvicorn.run(mcp.sse_app(), host="0.0.0.0", port=port)
